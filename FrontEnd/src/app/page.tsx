@@ -3,18 +3,6 @@ import styles from "./page.module.css";
 
 export default function Home() {
 
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/mymodel/')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the data!', error);
-      });
-  }, []);
-
 
   return (
     <main className={styles.main}>
