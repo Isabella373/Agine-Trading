@@ -1,0 +1,39 @@
+.toolbar {
+    display: flex;  /* fit into one line */
+    height: auto;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1e2329;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navItems {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: 1px solid #3b4552;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #2a3139;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #3b4552;
+    border-color: #4a5568;
+  }
+  
