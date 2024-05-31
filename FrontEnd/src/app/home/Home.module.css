@@ -1,0 +1,9 @@
+.main{
+    height: auto;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    background-color: #ffffff;
+}
