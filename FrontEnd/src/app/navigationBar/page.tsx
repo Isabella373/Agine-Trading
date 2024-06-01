@@ -18,10 +18,10 @@ export default function NavigationBar() {
       </div>
       <div className={styles.navItems}>
         <Link href="/login" legacyBehavior>
-          <a className={styles.button}>Login</a>
+          <a className={styles.button}>Log In</a>
         </Link>
         <Link href="/signup" legacyBehavior>
-          <a className={styles.button}>Sign Up</a>
+          <a className={styles.button2}>Sign Up</a>
         </Link>
       </div>
     </div>

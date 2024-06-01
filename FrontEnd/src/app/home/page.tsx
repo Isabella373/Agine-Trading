@@ -13,6 +13,10 @@ export default function Home() {
     <div className={styles.main}>
       <NavigationBar/>
       <div>Home Page</div>
+      <div>Home Page</div>
+      <div>Home Page</div>
+      <div>Home Page</div>
+      <div>Home Page</div>
     </div>
 
   );
