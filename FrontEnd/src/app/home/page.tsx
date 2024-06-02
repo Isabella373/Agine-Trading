@@ -3,13 +3,13 @@
  ***************************************************************/
 
  "use client";
- 
+
 import Image from "next/image";
 import NavigationBar from "../navigationBar/page";
-import { Fragment } from "react";
 import styles from "./Home.module.css";
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
+import CompanyScrollBar from "../companyScrollBar/page";
 
 export default function Home() {
   // Create a reference to the DOM element
@@ -18,8 +18,27 @@ export default function Home() {
   // Use useEffect to initialize the chart after the component mounts
   useEffect(() => {
     if (chartContainerRef.current) {
-      const chart = createChart(chartContainerRef.current, { width: 400, height: 300 });
-      const lineSeries = chart.addLineSeries();
+      const chart = createChart(chartContainerRef.current, {
+        width: 400,
+        height: 300,
+        layout: {
+          backgroundColor: '#ffffff', // Set background color to white
+          textColor: '#ffffff', // Set text color to black
+        },
+        grid: {
+          vertLines: {
+            color: '#ffffff',
+          },
+          horzLines: {
+            color: '#e0e0e0',
+          },
+        },
+      });
+
+      // Add a line series with a specific color
+      const lineSeries = chart.addLineSeries({
+        color: '#0000ff', // Set series line color to blue
+      });
       lineSeries.setData([
         { time: '2019-04-11', value: 80.01 },
         { time: '2019-04-12', value: 96.63 },
@@ -39,9 +58,10 @@ export default function Home() {
     <div className={styles.main}>
       <NavigationBar/>
       <div className={styles.Content}>
-        Home Page
+        <div className={styles.MarketTitle}>S&P500 Real Time Market Price</div>
+        <CompanyScrollBar/>
         <div ref={chartContainerRef}></div>
-        </div>
+      </div>
     </div>
   );
 }
