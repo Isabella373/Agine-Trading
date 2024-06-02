@@ -1,10 +1,29 @@
 .main{
-    height: auto;
+    height: 100vh;
     width: 100vw;
+    max-height: none;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: start;
+<<<<<<< HEAD
     background-color: #ffffff;
     color:black;
 }
+=======
+    background-color: black;
+    color:black;
+    overflow-y: auto;
+}
+
+.Content{
+    margin-top: 80px;
+}
+
+.MarketTitle {
+    margin-left: 25px;
+    font-size: 20px;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+>>>>>>> 8262cb3c8d43f17892e1327144b65a91064c3754
