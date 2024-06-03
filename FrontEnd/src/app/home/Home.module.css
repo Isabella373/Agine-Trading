@@ -6,6 +6,11 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
+<<<<<<< HEAD
+    background-color: #ffffff;
+    color:black;
+}
+=======
     background-color: black;
     color:black;
     overflow-y: auto;
@@ -28,6 +33,7 @@
     font-weight: bold;
     font-family: 'Comic Sans MS', cursive;
 }
+<<<<<<< HEAD
 
 .News {
     margin-top: 20px;
@@ -39,3 +45,6 @@
     font-size: 200px;
     color: #333;
   }
+=======
+>>>>>>> 8262cb3c8d43f17892e1327144b65a91064c3754
+>>>>>>> d7071b55129a6d050bb28f9d93f4aca429989a76
