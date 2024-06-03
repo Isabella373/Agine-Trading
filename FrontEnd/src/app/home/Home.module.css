@@ -39,3 +39,12 @@
     font-size: 200px;
     color: #333;
 }
+.ChartComponent{
+    background-color: black;
+    height: 600px;
+    width: calc(100vw - 120px);
+    margin-left: 60px;
+    margin-right: 60px;
+    border: 2px solid #ccc;
+    border-radius: 30px;
+}
