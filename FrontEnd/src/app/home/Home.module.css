@@ -14,10 +14,28 @@
 .Content{
     margin-top: 80px;
 }
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 
 .MarketTitle {
     margin-left: 25px;
     font-size: 20px;
     color: white;
-    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-family: 'Comic Sans MS', cursive;
 }
+
+.News {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    width: 100%;
+    text-align: center;
+    font-size: 200px;
+    color: #333;
+  }

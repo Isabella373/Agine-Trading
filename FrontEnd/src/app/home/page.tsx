@@ -10,6 +10,7 @@ import styles from "./Home.module.css";
 import { Fragment, useEffect, useRef } from 'react';
 import { createChart } from 'lightweight-charts';
 import CompanyScrollBar from "../companyScrollBar/page";
+import SearchBar from "../searchBar/SearchBar";
 
 export default function Home() {
   // Create a reference to the DOM element
@@ -23,7 +24,7 @@ export default function Home() {
         height: 300,
         layout: {
           backgroundColor: '#ffffff', // Set background color to white
-          textColor: '#ffffff', // Set text color to black
+          textColor: '#000000', // Set text color to black
         },
         grid: {
           vertLines: {
@@ -58,9 +59,13 @@ export default function Home() {
     <div className={styles.main}>
       <NavigationBar/>
       <div className={styles.Content}>
-        <div className={styles.MarketTitle}>S&P500 Real Time Market Price</div>
+      <div className={styles.titleContainer}>
+          <div className={styles.MarketTitle}>S&P500 Real Time Market Price</div>
+          <SearchBar />
+        </div>
         <CompanyScrollBar/>
         <div ref={chartContainerRef}></div>
+        <div className={styles.News}>News</div>
       </div>
     </div>
   );
