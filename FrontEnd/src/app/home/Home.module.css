@@ -6,11 +6,6 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-<<<<<<< HEAD
-    background-color: #ffffff;
-    color:black;
-}
-=======
     background-color: black;
     color:black;
     overflow-y: auto;
@@ -24,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-  }
+}
 
 .MarketTitle {
     margin-left: 25px;
@@ -33,7 +28,6 @@
     font-weight: bold;
     font-family: 'Comic Sans MS', cursive;
 }
-<<<<<<< HEAD
 
 .News {
     margin-top: 20px;
@@ -44,7 +38,4 @@
     text-align: center;
     font-size: 200px;
     color: #333;
-  }
-=======
->>>>>>> 8262cb3c8d43f17892e1327144b65a91064c3754
->>>>>>> d7071b55129a6d050bb28f9d93f4aca429989a76
+}
