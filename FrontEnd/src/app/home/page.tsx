@@ -7,6 +7,10 @@ import CompanyScrollBar from '../companyScrollBar/page';
 import SearchBar from '../searchBar/SearchBar';
 import Chart from '../chartComponent/chart'; // Import the new Chart component
 
+import { useSelector, useDispatch } from 'react-redux'
+import { changeSP500_list } from '@/store/dic'
+
+
 const initialCompanies = [
   { name: 'AMAZON', price: 500, change: 8 },
   { name: 'NVIDIA', price: 300, change: -2 },
