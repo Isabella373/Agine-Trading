@@ -43,7 +43,7 @@ export default function Home() {
   const handleCandlestickRequest=()=>{
     let requestBody = ["A","AAL"];
     axios.post(
-      "http://127.0.0.1:8000/candlestickDataTarget",
+      "http://127.0.0.1:8000/candlestickDataTarget/",
       requestBody,
       {headers:{'Content-Type':'application/json'}}
     )
