@@ -31,6 +31,7 @@ export default function Home() {
   const [filteredCompanies, setFilteredCompanies] = useState(initialCompanies);
 
   const handleSearchResult = (result) => {
+    console.log(result)
     if (result) {
       setFilteredCompanies([result]);
       setActiveCompany(result.name);
@@ -43,6 +44,7 @@ export default function Home() {
     }
   };
 
+  //format of requestBody should be ["A", "AES"]
   const handleCandlestickRequest = (symbol) => {
     console.log(symbol)
     axios.post(
