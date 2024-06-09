@@ -31,28 +31,33 @@ export default function Home() {
   const [filteredCompanies, setFilteredCompanies] = useState(initialCompanies);
 
   const handleSearchResult = (result) => {
+    console.log(result)
     if (result) {
       setFilteredCompanies([result]);
       setActiveCompany(result.name);
+      console.log("result:"+ result.name + "   " + result.symbol);
+      handleCandlestickRequest(result.symbol);
     } else {
       setFilteredCompanies(initialCompanies);
       setActiveCompany('AMAZON');
+      handleCandlestickRequest("AMZN");
     }
   };
 
-  const handleCandlestickRequest=()=>{
-    let requestBody = ["A","AAL"];
+  //format of requestBody should be ["A", "AES"]
+  const handleCandlestickRequest = (symbol) => {
     axios.post(
       "http://127.0.0.1:8000/candlestickDataTarget/",
-      requestBody,
-      {headers:{'Content-Type':'application/json'}}
+      symbol,
+      { headers: { 'Content-Type': 'application/json' } }
     )
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response);
+        // Process the response here
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
