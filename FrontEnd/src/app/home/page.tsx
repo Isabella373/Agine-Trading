@@ -45,11 +45,11 @@ export default function Home() {
   };
 
   //format of requestBody should be ["A", "AES"]
-  const handleCandlestickRequest = (symbol) => {
-    console.log(symbol)
+  const handleCandlestickRequest = (symbol:Array<string>) => {
+    let requstBody = {"targetList" : symbol}
     axios.post(
       "http://127.0.0.1:8000/candlestickDataTarget/",
-      JSON.stringify(symbol),
+      symbol,
       { headers: { 'Content-Type': 'application/json' } }
     )
       .then(function (response) {
