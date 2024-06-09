@@ -2,3 +2,4 @@ pip install Django
 pip install djongo
 pip install pymongo==3.12.3
 pip install pytz
+pip install pandas

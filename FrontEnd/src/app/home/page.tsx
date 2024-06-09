@@ -9,7 +9,7 @@ import Chart from '../chartComponent/chart'; // Import the new Chart component
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeSP500_list } from '@/store/dic'
-
+import axios from 'axios';
 
 const initialCompanies = [
   { name: 'AMAZON', price: 500, change: 8 },
@@ -39,6 +39,21 @@ export default function Home() {
       setActiveCompany('AMAZON');
     }
   };
+
+  const handleCandlestickRequest=()=>{
+    let requestBody = ["A","AAL"];
+    axios.post(
+      "http://127.0.0.1:8000/candlestickDataTarget",
+      requestBody,
+      {headers:{'Content-Type':'application/json'}}
+    )
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   return (
     <div className={styles.main}>
