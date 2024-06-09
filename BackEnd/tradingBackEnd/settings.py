@@ -75,16 +75,25 @@ WSGI_APPLICATION = 'tradingBackEnd.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#    'default': {
-#       'ENGINE': 'djongo',
-#       'ENFORCE_SCHEMA': True,
-#       'NAME': 'agineTrading',
-#       'HOST': '127.0.0.1',
-#       'PORT': 27017,
-#    }
-# }
+#https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+DATABASES = {
+   'default': {
+    'ENGINE': 'djongo',
+    'ENFORCE_SCHEMA': True,
+    'NAME': 'agineTrading',
+    'PORT': port_number,
+    'USER': 'db-username',
+    'PASSWORD': 'password',
+    'AUTH_SOURCE': 'db-name',
+    'AUTH_MECHANISM': 'SCRAM-SHA-1',
+    'REPLICASET': 'replicaset',
+    'SSL': 'ssl',
+    'SSL_CERTFILE': 'ssl_certfile',
+    'SSL_CA_CERTS': 'ssl_ca_certs',
+    'READ_PREFERENCE': 'read_preference'
+    'HOST': 'mongodb+srv://nobertdalton:ZzFmdIDTz6Lbrfdf@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
