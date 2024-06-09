@@ -35,18 +35,19 @@ export default function Home() {
       setFilteredCompanies([result]);
       setActiveCompany(result.name);
       console.log("result:"+ result.name + "   " + result.symbol);
-      handleCandlestickRequest(result.symbol);
+      handleCandlestickRequest([result.symbol]);
     } else {
       setFilteredCompanies(initialCompanies);
       setActiveCompany('AMAZON');
-      handleCandlestickRequest("AMZN");
+      handleCandlestickRequest(["AMZN"]);
     }
   };
 
   const handleCandlestickRequest = (symbol) => {
+    console.log(symbol)
     axios.post(
       "http://127.0.0.1:8000/candlestickDataTarget/",
-      symbol,
+      JSON.stringify(symbol),
       { headers: { 'Content-Type': 'application/json' } }
     )
       .then(function (response) {

@@ -70,6 +70,8 @@ def getAllCandlestickData(request):
 
 
 def getTargetCandlestickData(request):
+    print(request)
+    print(request.body)
     # we only process the data for company in targetlist which saves the time
     targetList = json.loads(request.body)
     #get the list of sp500 company names
