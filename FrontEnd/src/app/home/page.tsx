@@ -6,6 +6,8 @@ import styles from './Home.module.css';
 import CompanyScrollBar from '../companyScrollBar/page';
 import SearchBar from '../searchBar/SearchBar';
 import Chart from '../chartComponent/chart'; // Import the new Chart component
+import NewsLayout from '../newsLayout/page';
+import ButtonGroup from '../newsButtons/newsButtons';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeSP500_list } from '@/store/dic'
@@ -17,7 +19,7 @@ const initialCompanies = [
   { name: 'APPLE', price: 200, change: 5 },
   { name: 'MICROSOFT', price: 400, change: 3 },
   { name: 'META', price: 250, change: -1 },
-  { name: 'ALPHABET CL A', price: 700, change: 4 },
+  { name: 'ALPHABET A', price: 700, change: 4 },
   { name: 'JPMORGAN Chase', price: 350, change: 0 },
   { name: 'TESLA', price: 600, change: 10 },
   { name: 'COSTCO WHOLESALE', price: 450, change: -3 },
@@ -29,6 +31,7 @@ const initialCompanies = [
 export default function Home() {
   const [activeCompany, setActiveCompany] = useState('AMAZON');
   const [filteredCompanies, setFilteredCompanies] = useState(initialCompanies);
+  const [activeButton, setActiveButton] = useState('Real-Time News');
 
   const handleSearchResult = (result) => {
     console.log(result)
@@ -76,8 +79,9 @@ export default function Home() {
         />
         <div className={styles.ChartComponent}>
           <Chart />
-        </div>
-        <div className={styles.News}>News</div>
+          </div>
+          <ButtonGroup setActiveButton={setActiveButton} />
+          <NewsLayout activeButton={activeButton} />
       </div>
     </div>
   );
