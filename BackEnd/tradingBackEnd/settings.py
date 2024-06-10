@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1322b3c84adad199028fe76fed1e06ce80f299de
 """
 Django settings for tradingBackEnd project.
 
@@ -29,7 +33,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,14 +47,17 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # 加入中间键 位置必须在这里 不能在其他位置
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    
+    # 'CustomizedMiddleware.CROSmiddleware.CoreMiddle',
 ]
+
+
+ALLOWED_HOSTS = ['*'] # 允许全部IP访问项目
 
 ROOT_URLCONF = 'tradingBackEnd.urls'
 
@@ -75,14 +81,23 @@ WSGI_APPLICATION = 'tradingBackEnd.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+#https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 # DATABASES = {
 #    'default': {
-#       'ENGINE': 'djongo',
-#       'ENFORCE_SCHEMA': True,
-#       'NAME': 'agineTrading',
-#       'HOST': '127.0.0.1',
-#       'PORT': 27017,
+#     'ENGINE': 'djongo',
+#     'ENFORCE_SCHEMA': True,
+#     'NAME': 'agineTrading',
+#     'PORT': port_number,
+#     'USER': 'db-username',
+#     'PASSWORD': 'password',
+#     'AUTH_SOURCE': 'db-name',
+#     'AUTH_MECHANISM': 'SCRAM-SHA-1',
+#     'REPLICASET': 'replicaset',
+#     'SSL': 'ssl',
+#     'SSL_CERTFILE': 'ssl_certfile',
+#     'SSL_CA_CERTS': 'ssl_ca_certs',
+#     'READ_PREFERENCE': 'read_preference',
+#     'HOST':'mongodb+srv://nobertdalton:ZzFmdIDTz6Lbrfdf@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
 #    }
 # }
 
@@ -109,13 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -123,3 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
+=======
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = ('*')
+>>>>>>> 1322b3c84adad199028fe76fed1e06ce80f299de
