@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 1322b3c84adad199028fe76fed1e06ce80f299de
 """
 Django settings for tradingBackEnd project.
 
@@ -82,24 +79,26 @@ WSGI_APPLICATION = 'tradingBackEnd.wsgi.application'
 
 # Database
 #https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#    'default': {
-#     'ENGINE': 'djongo',
-#     'ENFORCE_SCHEMA': True,
-#     'NAME': 'agineTrading',
-#     'PORT': port_number,
-#     'USER': 'db-username',
-#     'PASSWORD': 'password',
-#     'AUTH_SOURCE': 'db-name',
-#     'AUTH_MECHANISM': 'SCRAM-SHA-1',
-#     'REPLICASET': 'replicaset',
-#     'SSL': 'ssl',
-#     'SSL_CERTFILE': 'ssl_certfile',
-#     'SSL_CA_CERTS': 'ssl_ca_certs',
-#     'READ_PREFERENCE': 'read_preference',
-#     'HOST':'mongodb+srv://nobertdalton:ZzFmdIDTz6Lbrfdf@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
-#    }
-# }
+DATABASES = {
+   'default': {
+    'ENGINE': 'djongo',
+    'ENFORCE_SCHEMA': True,
+    'NAME': 'agineTrading',
+    # 'PORT': port_number,
+    # 'USER': 'db-username',
+    # 'PASSWORD': 'password',
+    # 'AUTH_SOURCE': 'db-name',
+    # 'AUTH_MECHANISM': 'SCRAM-SHA-1',
+    # 'REPLICASET': 'replicaset',
+    # 'SSL': 'ssl',
+    # 'SSL_CERTFILE': 'ssl_certfile',
+    # 'SSL_CA_CERTS': 'ssl_ca_certs',
+    # 'READ_PREFERENCE': 'read_preference',
+    'client':{
+        'host': 'mongodb+srv://nobertdalton:ZzFmdIDTz6Lbrfdf@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
+    }
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -134,9 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-=======
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ('*')
->>>>>>> 1322b3c84adad199028fe76fed1e06ce80f299de

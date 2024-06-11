@@ -2,9 +2,10 @@
 import React from 'react';
 import styles from './CompanyScrollBar.module.css'; // Correctly import the CSS module
 
-export default function CompanyScrollBar({ activeCompany, setActiveCompany, companyList }) {
+export default function CompanyScrollBar({ activeCompany, setActiveCompany, companyList,handleCandlestickRequest }) {
   const handleButtonClick = (company) => {
     setActiveCompany(company.name);
+    handleCandlestickRequest([company.symbol]);
   };
 
   return (
