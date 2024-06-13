@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import NavigationBar from '../navigationBar/page';
 import styles from './Home.module.css';
 import CompanyScrollBar from '../companyScrollBar/page';
@@ -10,14 +9,12 @@ import NewsLayout from '../newsLayout/page';
 import ButtonGroup from '../newsButtons/newsButtons';
 import companies from '../searchBar/ConstCompanies';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { changeSP500_list } from '@/store/dic'
 import axios from 'axios';
 
 const initialCompanies = companies.map(company => ({
   name: company.name,
-  price: 0, // Set price to 0
-  change: 0, // Set change to 0
+  price: "", // Initially set to null
+  change: "",
   symbol: company.symbol,
   alias: company.alias,
 }));
@@ -27,23 +24,73 @@ export default function Home() {
   const [filteredCompanies, setFilteredCompanies] = useState(initialCompanies);
   const [activeButton, setActiveButton] = useState('Real-Time News');
   const [chartData, setChartData] = useState([]);
+  const formatNumberWithCommas = (number) => {
+    return new Intl.NumberFormat().format(number);
+  };
 
-  const handleSearchResult = (result) => {
-    console.log(result)
-    if (result) {
-      setFilteredCompanies([result]);
-      setActiveCompany(result.name);
-      console.log("result:"+ result.name + "   " + result.symbol);
-      handleCandlestickRequest([result.symbol]);
-    } else {
-      setFilteredCompanies(initialCompanies);
-      setActiveCompany('3M');
-      handleCandlestickRequest([""]); ///TODO: pop up error screen company not found
+  // Function to fetch volume data for a batch of companies
+  const fetchVolumeData = async (symbols) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/candlestickDataTarget/",
+        symbols,
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      const newCompanyData = symbols.map(symbol => {
+        const symbolData = response.data[symbol];
+        if (symbolData && symbolData.length) {
+          const volume = symbolData[0].volume;
+          return { symbol, price: formatNumberWithCommas(volume) };
+        }
+        return { symbol, price: 0 };
+      });
+
+      setFilteredCompanies(prevCompanies => 
+        prevCompanies.map(company => {
+          const newData = newCompanyData.find(c => c.symbol === company.symbol);
+          return newData ? { ...company, price: newData.price } : company;
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching volume data:", error);
     }
   };
 
-  //format of requestBody should be ["A", "AES"]
-  const handleCandlestickRequest = (symbols:Array<string>) => {
+  const fetchInBatches = async () => {
+    for (let i = 0; i < initialCompanies.length; i += 10) {
+      const batch = initialCompanies.slice(i, i + 10).map(company => company.symbol);
+      await fetchVolumeData(batch);
+    }
+  };
+  // Fetch volume data in batches of 10 companies
+  useEffect(() => {
+    
+    fetchInBatches();
+  }, []);
+
+  const handleSearchResult = (result) => {
+    if (result) {
+      setFilteredCompanies([result]);
+      setActiveCompany(result.name);
+      handleCandlestickRequest([result.symbol]);
+      fetchVolumeData([[result]])
+    } else if(result == ""){
+      setFilteredCompanies(initialCompanies);
+      setActiveCompany('3M');
+      handleCandlestickRequest(["MMM"]); ///TODO: pop up error screen company not found
+      fetchInBatches();
+    }
+    else {
+      setFilteredCompanies(initialCompanies);
+      setActiveCompany('3M');
+      handleCandlestickRequest([""]); ///TODO: pop up error screen company not found
+      fetchInBatches();
+    }
+  };
+
+  // Format of requestBody should be ["A", "AES"]
+  const handleCandlestickRequest = (symbols) => {
     axios.post(
       "http://127.0.0.1:8000/candlestickDataTarget/",
       symbols,
@@ -59,6 +106,7 @@ export default function Home() {
           high: item.high,
           low: item.low,
           close: item.close,
+          volume: item.volume,
         }));
         setChartData(parsedData);
       })
@@ -87,9 +135,9 @@ export default function Home() {
         />
         <div className={styles.ChartComponent}>
           <Chart data={chartData}/>
-          </div>
-          <ButtonGroup setActiveButton={setActiveButton} />
-          <NewsLayout activeButton={activeButton} />
+        </div>
+        <ButtonGroup setActiveButton={setActiveButton} />
+        <NewsLayout activeButton={activeButton} />
       </div>
     </div>
   );
