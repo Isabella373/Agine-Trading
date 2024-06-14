@@ -9,6 +9,3 @@ class User_detail(models.Model):
     user_password = models.CharField(max_length=200)
     create_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     # signal_strength = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.user_name

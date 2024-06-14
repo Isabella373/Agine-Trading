@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from pymongo import MongoClient
+from urllib.parse import quote_plus
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -22,10 +25,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '#v^^d_^a_fb&6sbj^kyj_v-3xqj#&i-lxj*n)4_*(==6bv7yx@'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -55,7 +56,6 @@ MIDDLEWARE = [
 
 
 ALLOWED_HOSTS = ['*'] # 允许全部IP访问项目
-
 ROOT_URLCONF = 'tradingBackEnd.urls'
 
 TEMPLATES = [
@@ -79,24 +79,26 @@ WSGI_APPLICATION = 'tradingBackEnd.wsgi.application'
 
 # Database
 #https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-# DATABASES = {
-#    'default': {
-#     'ENGINE': 'djongo',
-#     'ENFORCE_SCHEMA': True,
-#     'NAME': 'agineTrading',
-#     'PORT': port_number,
-#     'USER': 'db-username',
-#     'PASSWORD': 'password',
-#     'AUTH_SOURCE': 'db-name',
-#     'AUTH_MECHANISM': 'SCRAM-SHA-1',
-#     'REPLICASET': 'replicaset',
-#     'SSL': 'ssl',
-#     'SSL_CERTFILE': 'ssl_certfile',
-#     'SSL_CA_CERTS': 'ssl_ca_certs',
-#     'READ_PREFERENCE': 'read_preference',
-#     'HOST':'mongodb+srv://nobertdalton:ZzFmdIDTz6Lbrfdf@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
-#    }
-# }
+DATABASES = {
+   'default': {
+    'ENGINE': 'djongo',
+    'ENFORCE_SCHEMA': True,
+    'NAME': 'agineTrading',
+    # 'PORT': port_number,
+    # 'USER': 'db-username',
+    # 'PASSWORD': 'password',
+    # 'AUTH_SOURCE': 'db-name',
+    # 'AUTH_MECHANISM': 'SCRAM-SHA-1',
+    # 'REPLICASET': 'replicaset',
+    # 'SSL': 'ssl',
+    # 'SSL_CERTFILE': 'ssl_certfile',
+    # 'SSL_CA_CERTS': 'ssl_ca_certs',
+    # 'READ_PREFERENCE': 'read_preference',
+    'CLIENT': {
+        'host': 'mongodb+srv://nobertdalton:hanxinyiI!1@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0',
+    }
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
