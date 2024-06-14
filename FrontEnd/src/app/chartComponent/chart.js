@@ -9,6 +9,7 @@ export default function Chart({data}) {
 
 useEffect(() => {
     if (chartContainerRef.current) {
+      //set up the chart container
       const chart = createChart(chartContainerRef.current, {
         width: chartContainerRef.current.clientWidth,
         height: chartContainerRef.current.clientHeight,
@@ -22,9 +23,9 @@ useEffect(() => {
           },
         
       });
-
       chartRef.current = chart;
 
+      //set up the chart content
       const candlestickSeries = chart.addCandlestickSeries({
         upColor: '#00ff00',
         downColor: '#ff0000',
@@ -33,7 +34,6 @@ useEffect(() => {
         wickDownColor: '#ff0000',
         wickUpColor: '#00ff00',
       });
-
       candlestickSeriesRef.current = candlestickSeries;
 
       if (data) {

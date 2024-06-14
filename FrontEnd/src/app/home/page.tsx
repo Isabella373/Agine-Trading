@@ -95,9 +95,8 @@ export default function Home() {
       "http://127.0.0.1:8000/candlestickDataTarget/",
       symbols,
       { headers: { 'Content-Type': 'application/json' } }
-    )
-      .then(function (response) {
-        console.log(response);
+    ).then(function (response) {
+        // console.log(response);
         const symbol = symbols[0];
         const data = response.data[symbol];
         const parsedData = data.map(item => ({
@@ -123,21 +122,21 @@ export default function Home() {
     <div className={styles.main}>
       <NavigationBar />
       <div className={styles.Content}>
-        <div className={styles.titleContainer}>
-          <div className={styles.MarketTitle}>S&P500 Real Time Market Price</div>
-          <SearchBar onSearch={handleSearchResult} />
-        </div>
-        <CompanyScrollBar
-          activeCompany={activeCompany}
-          setActiveCompany={setActiveCompany}
-          companyList={filteredCompanies}
-          handleCandlestickRequest={handleCandlestickRequest}
-        />
-        <div className={styles.ChartComponent}>
-          <Chart data={chartData}/>
-        </div>
-        <ButtonGroup setActiveButton={setActiveButton} />
-        <NewsLayout activeButton={activeButton} />
+          <div className={styles.titleContainer}>
+            <div className={styles.MarketTitle}>S&P500 Real Time Market Price</div>
+            <SearchBar onSearch={handleSearchResult} />
+          </div>
+          <CompanyScrollBar
+            activeCompany={activeCompany}
+            setActiveCompany={setActiveCompany}
+            companyList={filteredCompanies}
+            handleCandlestickRequest={handleCandlestickRequest}
+          />
+          <div className={styles.ChartComponent}>
+            <Chart data={chartData}/>
+          </div>
+          <ButtonGroup setActiveButton={setActiveButton} />
+          <NewsLayout activeButton={activeButton} />
       </div>
     </div>
   );
