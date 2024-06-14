@@ -95,7 +95,7 @@ DATABASES = {
     # 'SSL_CA_CERTS': 'ssl_ca_certs',
     # 'READ_PREFERENCE': 'read_preference',
     'CLIENT': {
-        'host': 'mongodb+srv://nobertdalton:hanxinyiI!1@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0',
+        'host': 'mongodb+srv://nobertdalton:hanxinyiI!1@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
     }
    }
 }

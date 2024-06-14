@@ -28,7 +28,7 @@ export default function SearchBar({ onSearch }) {
   const handleInputChange = (e) => {
     setQuery(e.target.value);
     if (e.target.value === '') {
-      onSearch(null);
+      onSearch("");
     }
   };
 
