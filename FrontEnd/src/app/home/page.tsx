@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import NavigationBar from '../navigationBar/page';
 import styles from './Home.module.css';
 import CompanyScrollBar from '../companyScrollBar/page';
@@ -9,7 +9,13 @@ import NewsLayout from '../newsLayout/page';
 import ButtonGroup from '../newsButtons/newsButtons';
 import companies from '../searchBar/ConstCompanies';
 
+
+import { useSelector, useDispatch } from 'react-redux'
+import { loadCandleStick,loadCandleSticks } from '@/store/dic';
 import axios from 'axios';
+import { error } from 'console';
+
+
 
 const initialCompanies = companies.map(company => ({
   name: company.name,
@@ -20,102 +26,98 @@ const initialCompanies = companies.map(company => ({
 }));
 
 export default function Home() {
+  const loadingStatus = useSelector((state) => state.dic.status);
+  const candleStick =  useSelector((state) => state.dic.candleStick);
+  const dispatch = useDispatch()
   const [activeCompany, setActiveCompany] = useState('3M');
   const [filteredCompanies, setFilteredCompanies] = useState(initialCompanies);
   const [activeButton, setActiveButton] = useState('Real-Time News');
   const [chartData, setChartData] = useState([]);
+
+
   const formatNumberWithCommas = (number) => {
     return new Intl.NumberFormat().format(number);
   };
-
   // Function to fetch volume data for a batch of companies
   const fetchVolumeData = async (symbols) => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/candlestickDataTarget/",
-        symbols,
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      const newCompanyData = symbols.map(symbol => {
-        const symbolData = response.data[symbol];
-        if (symbolData && symbolData.length) {
-          const volume = symbolData[0].volume;
-          return { symbol, price: formatNumberWithCommas(volume) };
-        }
-        return { symbol, price: 0 };
-      });
-
-      setFilteredCompanies(prevCompanies => 
-        prevCompanies.map(company => {
-          const newData = newCompanyData.find(c => c.symbol === company.symbol);
-          return newData ? { ...company, price: newData.price } : company;
-        })
-      );
-    } catch (error) {
+      const requestArray = symbols.filter((item)=>{
+        if(candleStick.hasOwnProperty(item)){return false;}else{return true;}
+      })
+      if(requestArray.length > 0){
+        console.log(requestArray)
+        await dispatch(loadCandleSticks(requestArray));
+        const newCompanyData = symbols.map(symbol => {
+          const symbolData = candleStick[symbol];
+          if (symbolData && symbolData.length) {
+            const volume = symbolData[0].volume;
+            return { symbol, price: formatNumberWithCommas(volume) };
+          }
+          return { symbol, price: 0 };
+        });
+        setFilteredCompanies(prevCompanies => 
+          prevCompanies.map(company => {
+            const newData = newCompanyData.find(c => c.symbol === company.symbol);
+            return newData ? { ...company, price: newData.price } : company;
+          })
+        );
+      }else{
+        const newCompanyData = symbols.map(symbol => {
+          const symbolData = candleStick[symbol];
+          if (symbolData && symbolData.length) {
+            const volume = symbolData[0].volume;
+            return { symbol, price: formatNumberWithCommas(volume) };
+          }
+          return { symbol, price: 0 };
+        });
+        setFilteredCompanies(prevCompanies => 
+          prevCompanies.map(company => {
+            const newData = newCompanyData.find(c => c.symbol === company.symbol);
+            return newData ? { ...company, price: newData.price } : company;
+          })
+        );
+      }
+    }catch(error) {
       console.error("Error fetching volume data:", error);
     }
   };
-
+  // Fetch volume data in batches of 10 companies
   const fetchInBatches = async () => {
-    for (let i = 0; i < initialCompanies.length; i += 10) {
-      const batch = initialCompanies.slice(i, i + 10).map(company => company.symbol);
+    for (let i = 0; i < initialCompanies.length; i += 30) {
+      const batch = initialCompanies.slice(i, i + 30).map(company => company.symbol);
+      await new Promise((resolve, reject)=>{
+        setTimeout(resolve,4000);
+      })
       await fetchVolumeData(batch);
     }
   };
-  // Fetch volume data in batches of 10 companies
-  useEffect(() => {
-    
-    fetchInBatches();
-  }, []);
-
   const handleSearchResult = (result) => {
+    //if there is no corresponding match in the search function, the result would be null
     if (result) {
       setFilteredCompanies([result]);
       setActiveCompany(result.name);
-      handleCandlestickRequest([result.symbol]);
+      dispatch(loadCandleStick([result.symbol]));
       fetchVolumeData([[result]])
     } else if(result == ""){
       setFilteredCompanies(initialCompanies);
       setActiveCompany('3M');
-      handleCandlestickRequest(["MMM"]); ///TODO: pop up error screen company not found
-      fetchInBatches();
+      dispatch(loadCandleStick([result.symbol])); ///TODO: pop up error screen company not found
+      // fetchInBatches();
     }
     else {
+      //in this case the result is null
       setFilteredCompanies(initialCompanies);
       setActiveCompany('3M');
-      handleCandlestickRequest([""]); ///TODO: pop up error screen company not found
-      fetchInBatches();
+      dispatch(loadCandleStick(["MMM"])); ///TODO: pop up error screen company not found
+      // fetchInBatches();
     }
   };
 
-  // Format of requestBody should be ["A", "AES"]
-  const handleCandlestickRequest = (symbols) => {
-    axios.post(
-      "http://127.0.0.1:8000/candlestickDataTarget/",
-      symbols,
-      { headers: { 'Content-Type': 'application/json' } }
-    ).then(function (response) {
-        // console.log(response);
-        const symbol = symbols[0];
-        const data = response.data[symbol];
-        const parsedData = data.map(item => ({
-          time: item.time,
-          open: item.open,
-          high: item.high,
-          low: item.low,
-          close: item.close,
-          volume: item.volume,
-        }));
-        setChartData(parsedData);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
   useEffect(() => {
-    handleCandlestickRequest(["MMM"]); // Fetch default data for 3M when component mounts
+    dispatch(loadCandleStick(["MMM"]));
+    // fetchInBatches();
+    // loadCandleStick(["MMM"]); // Fetch default data for 3M when component mounts
   }, []);
 
   return (
@@ -130,13 +132,12 @@ export default function Home() {
             activeCompany={activeCompany}
             setActiveCompany={setActiveCompany}
             companyList={filteredCompanies}
-            handleCandlestickRequest={handleCandlestickRequest}
           />
           <div className={styles.ChartComponent}>
-            <Chart data={chartData}/>
+                <Chart/>
           </div>
           <ButtonGroup setActiveButton={setActiveButton} />
-          <NewsLayout activeButton={activeButton} />
+          {/* <NewsLayout activeButton={activeButton} /> */}
       </div>
     </div>
   );

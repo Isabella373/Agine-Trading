@@ -22,14 +22,16 @@ export default function SearchBar({ onSearch }) {
       }
       return acc;
     }, null);
+    console.log("mostMatchedItem")
+    console.log(mostMatchedItem)
     onSearch(mostMatchedItem);
   };
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
-    if (e.target.value === '') {
-      onSearch("");
-    }
+    // if (e.target.value === '') {
+    //   onSearch("");
+    // }
   };
 
   const handleKeyPress = (e) => {

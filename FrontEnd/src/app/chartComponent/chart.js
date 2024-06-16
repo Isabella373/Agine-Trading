@@ -1,15 +1,35 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { createChart } from 'lightweight-charts';
 import styles from './chart.module.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCandleStick } from '@/store/dic'
 
-export default function Chart({data}) {
+export default function Chart() {
   const chartContainerRef = useRef(null);
   const chartRef = useRef(null);
   const candlestickSeriesRef = useRef(null);
+  const originCandleStick =  useSelector((state) => state.dic.candleStick);
+  const flag = useSelector((state) => state.dic.flag)
+  const loadingStatus = useSelector((state) => state.dic.status);
+  // console.log(originData)
+  // const dataProcess = ()=>{
+  //   if (candlestickSeriesRef.current && curChart) {
+  //     originData = useSelector((state) => state.dic.candleStick)[curChart];
+  //     console.log("Original Data:", originData);
+  //     const sortedData = [...originData].sort((a, b) => a.time - b.time);
+  //     const reversedData = sortedData.reverse()
+  //     console.log("Sorted Data:", reversedData);
+  //     candlestickSeriesRef.current.setData(sortedData);
+  //   }
+  // }
+
+
+
+
 
 useEffect(() => {
     if (chartContainerRef.current) {
-      //set up the chart container
+        //set up the chart container
       const chart = createChart(chartContainerRef.current, {
         width: chartContainerRef.current.clientWidth,
         height: chartContainerRef.current.clientHeight,
@@ -21,7 +41,6 @@ useEffect(() => {
             vertLines: { color: "#444" }, // Set vertical line color
             horzLines: { color: "#444" }, // Set horizontal line color
           },
-        
       });
       chartRef.current = chart;
 
@@ -35,11 +54,7 @@ useEffect(() => {
         wickUpColor: '#00ff00',
       });
       candlestickSeriesRef.current = candlestickSeries;
-
-      if (data) {
-        candlestickSeries.setData(data);
-      }
-
+      
     // Event listener for window resizing
     const handleResize = () => {
         chart.applyOptions({
@@ -47,7 +62,6 @@ useEffect(() => {
           height: chartContainerRef.current.clientHeight,
         });
       };
-
     window.addEventListener("resize", handleResize);
 
       // Cleanup on component unmount
@@ -59,15 +73,14 @@ useEffect(() => {
   }
 }, []);
 
-useEffect(() => {
-  if (candlestickSeriesRef.current && data) {
-    console.log("Original Data:", data);
-    const sortedData = [...data].sort((a, b) => a.time - b.time);
-    const reversedData = sortedData.reverse()
-    console.log("Sorted Data:", reversedData);
-    candlestickSeriesRef.current.setData(sortedData);
+useEffect(()=>{
+  if(Object.keys(originCandleStick).length > 0){
+    // console.log(originCandleStick[flag])
+    candlestickSeriesRef.current.setData(originCandleStick[flag]);
   }
-}, [data]);
+}, [originCandleStick])
 
-return <div ref={chartContainerRef} className={styles.chartContainer}></div>;
+return (
+    <div ref={chartContainerRef} className={styles.chartContainer}></div>
+  )
 }
