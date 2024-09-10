@@ -1,8 +1,8 @@
-pip install Django
-pip install djongo
-pip install pymongo==3.12.3
-pip install pytz
-pip install pandas
-pip install pandas_datareader
-pip install yfinance
-pip install pandas_ta
+Django
+djongo
+pymongo==3.12.3
+pytz
+pandas
+pandas_datareader
+yfinance
+pandas_ta

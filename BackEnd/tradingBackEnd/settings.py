@@ -76,29 +76,36 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tradingBackEnd.wsgi.application'
 
+# Database settings using pymongo directly
+MONGO_URI = "mongodb+srv://hanxy030703:2ZbMcWH4HtyTP8Xg@aginetrading.4ogjg.mongodb.net/?retryWrites=true&w=majority&appName=aginetrading"
 
-# Database
-#https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-DATABASES = {
-   'default': {
-    'ENGINE': 'djongo',
-    'ENFORCE_SCHEMA': True,
-    'NAME': 'agineTrading',
-    # 'PORT': port_number,
-    # 'USER': 'db-username',
-    # 'PASSWORD': 'password',
-    # 'AUTH_SOURCE': 'db-name',
-    # 'AUTH_MECHANISM': 'SCRAM-SHA-1',
-    # 'REPLICASET': 'replicaset',
-    # 'SSL': 'ssl',
-    # 'SSL_CERTFILE': 'ssl_certfile',
-    # 'SSL_CA_CERTS': 'ssl_ca_certs',
-    # 'READ_PREFERENCE': 'read_preference',
-    'CLIENT': {
-        'host': 'mongodb+srv://nobertdalton:hanxinyi@cluster0.p25jjaw.mongodb.net/?retryWrites=true&w=majority&appName=cluster0'
-    }
-   }
-}
+# Initialize MongoDB connection
+client = MongoClient(MONGO_URI)
+db = client['aginetrading']
+
+
+# # Database
+# #https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# DATABASES = {
+#    'default': {
+#     'ENGINE': 'djongo',
+#     'ENFORCE_SCHEMA': True,
+#     'NAME': 'aginetrading',
+#     # 'PORT': port_number,
+#     # 'USER': 'db-username',
+#     # 'PASSWORD': 'password',
+#     # 'AUTH_SOURCE': 'db-name',
+#     # 'AUTH_MECHANISM': 'SCRAM-SHA-1',
+#     # 'REPLICASET': 'replicaset',
+#     # 'SSL': 'ssl',
+#     # 'SSL_CERTFILE': 'ssl_certfile',
+#     # 'SSL_CA_CERTS': 'ssl_ca_certs',
+#     # 'READ_PREFERENCE': 'read_preference',
+#     'CLIENT': {
+#         'host': "mongodb+srv://hanxy030703:2ZbMcWH4HtyTP8Xg@aginetrading.4ogjg.mongodb.net/?retryWrites=true&w=majority&appName=aginetrading"
+#     }
+#    }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

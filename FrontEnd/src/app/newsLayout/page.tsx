@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 
@@ -39,8 +41,13 @@ const NewsLayout = () => {
     // Add more news items as needed
   ];
 
+  interface CardHeights {
+    [key: number]: number;
+  }
+  
+
   useEffect(() => {
-    const updatedCardHeights = {};
+    const updatedCardHeights: CardHeights = {};
     newsData.forEach((news, index) => {
       const cardContent = document.getElementById(`card-content-${index}`);
       if (cardContent) {

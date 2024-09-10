@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import styles from './newsButtons.module.css'; // Import CSS module
 
-const ButtonGroup = () => {
-  const [activeButton, setActiveButton] = useState('Real-Time News');
+// Define the type for props
+type ButtonGroupProps = {
+  setActiveButton: React.Dispatch<React.SetStateAction<string>>; // Function to set active button from parent
+  activeButton: string; // The active button state passed down from parent
+};
 
-  const handleClick = (button) => {
-    setActiveButton(button);
+const ButtonGroup: React.FC<ButtonGroupProps> = ({ setActiveButton, activeButton }) => {
+  
+  const handleClick = (button: string) => {
+    setActiveButton(button); // Call the parent handler
   };
 
   return (
