@@ -1,0 +1,8 @@
+Django
+djongo
+pymongo==3.12.3
+pytz
+pandas
+pandas_datareader
+yfinance
+pandas_ta

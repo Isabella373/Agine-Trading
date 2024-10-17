@@ -1,0 +1,47 @@
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: calc(100% - 20px); /* Adjust for margin */
+    margin-left: 10px; /* Adjust for margin */
+    margin-right: 10px; /* Adjust for margin */
+  }
+  
+  .button-group button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Comic Sans MS';
+    width: 20%; /* Set width to 20% */
+    position: relative; /* Needed for the pseudo-element */
+  }
+  
+  .button-group button:hover {
+    color: rgba(221, 160, 221, 0.5); /* Change text color on hover */
+  }
+  
+  .button-group button:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(221, 160, 221, 0.5); /* Lighter color than '#DDA0DD' */
+  }
+  
+  .button-group span {
+    color: white;
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  
+  .button-group button.active {
+    color: #DDA0DD; /* Active button color */
+  }
+  

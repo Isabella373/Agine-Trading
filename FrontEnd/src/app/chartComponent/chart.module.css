@@ -1,0 +1,25 @@
+
+.chartContainer {
+    width: 94%;
+    height: 98%;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-top: 0.5%;
+}
+  
+  /* Apply styles to the chart container to match the background color */
+  .chartContainer {
+    background-color: #222;
+  }
+  
+  /* Apply styles to the price scale border */
+  .lightweight-chart {
+    --price-scale-border-color: #71649C;
+  }
+  
+  /* Apply styles to the time scale border */
+  .lightweight-chart {
+    --time-scale-border-color: #71649C;
+  }
+  

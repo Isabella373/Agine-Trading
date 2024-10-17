@@ -1,0 +1,71 @@
+/* CompanyScrollBar.module.css */
+.scrollContainer {
+  width: calc(100vw - 30px);
+  margin: 12px;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 5px;
+  border: 2px solid #1e2126;
+  border-radius: 35px;
+  text-decoration: none;
+  background-color: black;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scrollContent {
+  display: inline-flex;
+}
+
+.companyButton {
+  flex: 0 0 auto;
+  margin: 0px 5px;
+  padding: 3px 32px;
+  border: none;
+  background-color:black;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.companyButton:hover {
+  background-color: #2a3139;
+}
+.active {
+  background-color: #2a3139;
+}
+
+.companyName {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.companyDetails {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.companyPrice {
+  font-size: 13px;
+}
+
+.companyChange {
+  font-size: 12px;
+}
+
+.positive {
+  color: #00ff00; /* Green for positive change */
+}
+
+.negative {
+  color: #ff0000; /* Red for negative change */
+}
